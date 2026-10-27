@@ -4,7 +4,7 @@ Web educativa e interactiva sobre el **magnetismo**, sus **usos en la vida diari
 
 ## ✨ Qué incluye
 
-- ** 📖 Contenido educativo:** qué es el magnetismo, los polos, el campo magnético terrestre y datos curiosos (tortugas marinas, trenes Maglev, auroras boreales).
+- **📖 Contenido educativo:** qué es el magnetismo, los polos, el campo magnético terrestre y datos curiosos (tortugas marinas, trenes Maglev, auroras boreales).
 - **🎯 Sección de usos:** motores eléctricos, trenes Maglev, resonancia magnética (MRI), altavoces, discos duros, cocinas de inducción y brújulas.
 - **🧪 Simuladores en canvas**:
   - *Imanes y campo magnético:* arrastra dos imanes y observa atracción, repulsión y líneas de campo.
