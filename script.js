@@ -103,6 +103,7 @@ function initMagnetSim() {
   canvas.onmousedown = startDrag;
   canvas.onmousemove = drag;
   canvas.onmouseup = endDrag;
+  window.onmouseup = endDrag;
   canvas.ontouchstart = (e) => startDrag(e.touches[0]);
   canvas.ontouchmove = (e) => { e.preventDefault(); drag(e.touches[0]); };
   canvas.ontouchend = endDrag;
@@ -110,11 +111,23 @@ function initMagnetSim() {
   runMagnetLoop();
 }
 
+// Convierte coordenadas de pantalla a coordenadas internas del canvas,
+// incluso cuando CSS escala el canvas visualize (móviles / redimensionado).
+function getCanvasCoordinates(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  return {
+    x: (e.clientX - rect.left) * scaleX,
+    y: (e.clientY - rect.top) * scaleY,
+  };
+}
+
 function startDrag(e) {
   if (!dragTargets.length) return;
-  const rect = canvas.getBoundingClientRect();
-  const mouseX = e.clientX - rect.left;
-  const mouseY = e.clientY - rect.top;
+  const pos = getCanvasCoordinates(e);
+  const mouseX = pos.x;
+  const mouseY = pos.y;
 
   dragTargets.forEach(m => {
     if (
@@ -131,9 +144,9 @@ function startDrag(e) {
 
 function drag(e) {
   if (!draggedMagnet) return;
-  const rect = canvas.getBoundingClientRect();
-  draggedMagnet.x = e.clientX - rect.left - dragOffsetX;
-  draggedMagnet.y = e.clientY - rect.top - dragOffsetY;
+  const pos = getCanvasCoordinates(e);
+  draggedMagnet.x = pos.x - dragOffsetX;
+  draggedMagnet.y = pos.y - dragOffsetY;
 }
 
 function endDrag() {
@@ -369,6 +382,7 @@ function initCompassSim() {
   canvas.onmousedown = startDrag;
   canvas.onmousemove = drag;
   canvas.onmouseup = endDrag;
+  window.onmouseup = endDrag;
   canvas.ontouchstart = (e) => startDrag(e.touches[0]);
   canvas.ontouchmove = (e) => { e.preventDefault(); drag(e.touches[0]); };
   canvas.ontouchend = endDrag;
