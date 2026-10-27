@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¡El Fascinante Mundo del Magnetismo y Motores!</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧲</text></svg>">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navegación entre Páginas -->
+  <header class="navbar">
+    <div class="logo">🧲 MagneWorld!</div>
+    <nav>
+      <button class="nav-btn active" onclick="switchPage('home')">🏠 Inicio</button>
+      <button class="nav-btn" onclick="switchPage('simulator')">🚀 Simulador y Motores</button>
+    </nav>
+  </header>
+
+  <!-- ================= PÁGINA PRINCIPAL ================= -->
+  <main id="page-home" class="page active">
+    
+    <!-- Hero Banner -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="bounce-title">¡Descubre la Fuerza Invisible! ⚡</h1>
+        <p>Acompáñanos a explorar cómo los imanes y la electricidad mueven nuestro mundo, desde juguetes hasta los motores de los autos eléctricos.</p>
+        <button class="cta-btn" onclick="switchPage('simulator')">¡Probar el Simulador! 🚀</button>
+      </div>
+      <div class="hero-image">
+        <img src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?w=600&auto=format&fit=crop&q=80" alt="Imán con limaduras de hierro" class="floating-img">
+      </div>
+    </section>
+
+    <!-- ¿Qué es el Magnetismo? -->
+    <section class="info-section">
+      <h2 class="section-title">¿Qué es el Magnetismo? 🤔</h2>
+      <div class="cards-grid">
+        <div class="card pulse-hover">
+          <div class="card-icon">⚡</div>
+          <h3>Una Fuerza Natural</h3>
+          <p>El magnetismo es una fuerza de atracción o repulsión ejercida por materiales magnéticos a través de campos invisibles.</p>
+        </div>
+        <div class="card pulse-hover">
+          <div class="card-icon">🧭</div>
+          <h3>Polos Opuestos</h3>
+          <p>Cada imán tiene dos polos: <b>Norte (N)</b> y <b>Sur (S)</b>. Los polos opuestos se atraen y los iguales se repelen con fuerza.</p>
+        </div>
+        <div class="card pulse-hover">
+          <div class="card-icon">🌍</div>
+          <h3>La Tierra es un Imán Gigante</h3>
+          <p>El núcleo de nuestro planeta genera un campo magnético colosal que nos protege de la radiación solar y guía a las brújulas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN: USOS DEL MAGNETISMO -->
+    <section class="info-section">
+      <h2 class="section-title">🧲 Usos del Magnetismo en tu Día a Día 🎯</h2>
+      <div class="cards-grid">
+        <div class="card pulse-hover">
+          <div class="card-icon">⚙️</div>
+          <h3>Motores Eléctricos</h3>
+          <p>De ventiladores y lavadoras a autos eléctricos: una bobina girando entre imanes convierte electricidad en movimiento.</p>
+          <span class="use-tag">🏠 Hogar y transporte</span>
+        </div>
+        <div class="card pulse-hover">
+          <div class="card-icon">🚅</div>
+          <h3>Trenes Maglev</h3>
+          <p>Flotan sobre los rieles por repulsión magnética. Sin rozamiento, alcanzan más de 600 km/h como si volaran.</p>
+          <span class="use-tag">🚆 Transporte</span>
+        </div>
+        <div class="card pulse-hover">
+          <div class="card-icon">🏥</div>
+          <h3>Resonancia Magnética</h3>
+          <p>La MRI usa un campo magnético potente para "fotografiar" órganos por dentro, sin cirugía ni radiación.</p>
+          <span class="use-tag">🩺 Medicina</span>
+        </div>
+        <div class="card pulse-hover">
+          <div class="card-icon">🔊</div>
+          <h3>Altavoces y Audífonos</h3>
+          <p>Una bobina vibra dentro de un imán al pasar corriente y empuja el aire, creando la música que escuchas.</p>
+          <span class="use-tag">🎧 Sonido</span>
+        </div>
+        <div class="card pulse-hover">
+          <div class="card-icon">💾</div>
+          <h3>Disco Duro y Tarjetas</h3>
+          <p>Tus archivos se guardan imantando pequeñas zonas de un disco: cada polaridad representa un 0 o un 1.</p>
+          <span class="use-tag">📱 Tecnología</span>
+        </div>
+        <div class="card pulse-hover">
+          <div class="card-icon">🍳</div>
+          <h3>Cocinas de Inducción</h3>
+          <p>Un campo magnético oscilante calienta la olla directamente, sin llama ni resistencias visibles.</p>
+          <span class="use-tag">✨ Cocina</span>
+        </div>
+        <div class="card pulse-hover">
+          <div class="card-icon">🧭</div>
+          <h3>La Brújula</h3>
+          <p>El uso más antiguo y vigente: la aguja se alinea con el campo magnético de la Tierra y marca el norte desde hace siglos.</p>
+          <span class="use-tag">🗺️ Navegación</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN: MOTORES Y ELECTROMAGNETISMO -->
+    <section class="motor-intro-section">
+      <h2 class="section-title">⚙️ El Secreto de los Motores Eléctricos ⚡</h2>
+      <div class="motor-intro-card">
+        <div class="motor-text">
+          <h3>¿Cómo funciona un motor por dentro?</h3>
+          <p>¿Alguna vez te has preguntado qué hace girar los ventiladores, licuadoras o autos eléctricos? ¡Es la magia del <b>Electromagnetismo</b>!</p>
+          <ul class="feature-list">
+            <li>🔌 <b>Electricidad en movimiento:</b> Cuando la corriente eléctrica pasa por un cable (bobina), este se convierte en un electroimán.</li>
+            <li>🔄 <b>Fuerza Electromagnética:</b> Al interactuar con imanes permanentes, se genera una fuerza (Fuerza de Lorentz) que empuja la bobina y la hace girar sin parar.</li>
+            <li>🚀 ¡Así es como la energía eléctrica se convierte en pura energía de movimiento!</li>
+          </ul>
+        </div>
+        <div class="motor-image-container">
+          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=80" alt="Motor eléctrico y tecnología" class="glow-img" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Datos Curiosos -->
+    <section class="fun-facts">
+      <h2 class="section-title">💡 ¡Datos Curiosos Impactantes! 💡</h2>
+      <div class="facts-container">
+        <div class="fact-card red-theme">
+          <span class="badge">#1</span>
+          <h3>¡Animales con Brújula Interna! 🐢</h3>
+          <p>Las tortugas marinas y las palomas tienen pequeños cristales de magnetita en sus cabezas que actúan como un GPS natural usando el campo magnético terrestre.</p>
+        </div>
+        <div class="fact-card purple-theme">
+          <span class="badge">#2</span>
+          <h3>Trenes Levitantes 🚅</h3>
+          <p>Los trenes <i>Maglev</i> flotan sobre los rieles gracias a la repulsión magnética. ¡Como no rozan con nada, vuelan a más de 600 km/h!</p>
+        </div>
+        <div class="fact-card blue-theme">
+          <span class="badge">#3</span>
+          <h3>Auroras Boreales Mágicas 🌌</h3>
+          <p>Cuando las partículas del Sol chocan contra el campo magnético de la Tierra, se encienden en el cielo creando espectaculares luces de colores.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUEVA SECCIÓN: QUIZ -->
+    <section class="quiz-section">
+      <h2 class="section-title">🎮 ¿Cuánto Sabes de Usos? Compruébalo ⚡</h2>
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-progress" id="quizProgress">Pregunta 1 de 6 · Puntos: 0</div>
+        <h3 id="quizQuestion">Cargando pregunta...</h3>
+        <div class="quiz-options" id="quizOptions"></div>
+        <p class="quiz-feedback" id="quizFeedback" role="status" aria-live="polite"></p>
+        <div class="quiz-next-wrap">
+          <button class="cta-btn" id="quizNextBtn" onclick="nextQuizQuestion()" hidden>Siguiente ➜</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= SUBPÁGINA: SIMULADOR ================= -->
+  <section id="page-simulator" class="page">
+    <section class="simulator-header">
+      <h1 class="bounce-title">🧲 Laboratorio Magnético Interactivo ⚡</h1>
+      <p>Elige qué experimento deseas realizar en tiempo real:</p>
+      
+      <div class="mode-selector">
+        <button class="mode-btn active" id="btnModeMagnets" onclick="setSimMode('magnets')">🧲 Imanes y Campo Magnético</button>
+        <button class="mode-btn" id="btnModeMotor" onclick="setSimMode('motor')">⚡ Motor Eléctrico y Fuerza</button>
+        <button class="mode-btn" id="btnModeCompass" onclick="setSimMode('compass')">🧭 Brújula y Navegación</button>
+      </div>
+
+      <!-- Controles específicos para Imanes -->
+      <div id="controlsMagnets" class="sim-controls">
+        <button class="action-btn" onclick="togglePolarity(1)">Cambiar Polo Imán 1</button>
+        <button class="action-btn" onclick="togglePolarity(2)">Cambiar Polo Imán 2</button>
+        <button class="action-btn reset" onclick="resetMagnets()">Reiniciar Posiciones</button>
+      </div>
+
+      <!-- Controles específicos para Brújula -->
+      <div id="controlsCompass" class="sim-controls" style="display: none;">
+        <button class="action-btn" onclick="toggleCompassPolarity()">Cambiar Polo del Imán</button>
+        <button class="action-btn reset" onclick="resetCompass()">Reiniciar Imán</button>
+      </div>
+
+      <!-- Controles específicos para Motor -->
+      <div id="controlsMotor" class="sim-controls" style="display: none;">
+        <button class="action-btn" onclick="toggleMotorSpeed()">Aumentar / Reducir Velocidad</button>
+        <button class="action-btn reset" onclick="toggleCurrentDirection()">Invertir Corriente (Invertir Giro)</button>
+      </div>
+    </section>
+
+    <div class="canvas-container">
+      <canvas id="magnetCanvas" width="800" height="450" role="img" aria-label="Lienzo del simulador interactivo de magnetismo"></canvas>
+      <div class="sim-status" id="simStatus">¡Explora las fuerzas invisibles!</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>⚡ MagneWorld - Creado para explorar la ciencia de forma divertida 🧲</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
