@@ -4,8 +4,8 @@ Web educativa e interactiva sobre el **magnetismo**, sus **usos en la vida diari
 
 ## ✨ Qué incluye
 
-- **📖 Contenido educativo:** qué es el magnetismo, los polos, el campo magnético terrestre y datos curiosos (tortugas marinas, trenes Maglev, auroras boreales).
-- **🎯 Sección de usos:** motores eléctricos, trenes Maglev, resonancia magnética (MRI), altavoces, discos duros, cocinas de inducción y brújulas.
+- ** 📖 Contenido educativo:** qué es el magnetismo, los polos, el campo magnético terrestre y datos curiosos (tortugas marinas, trenes Maglev, auroras boreales).
+- ** 🎯 Sección de usos:** motores eléctricos, trenes Maglev, resonancia magnética (MRI), altavoces, discos duros, cocinas de inducción y brújulas.
 - **🧪 Simuladores en canvas**:
   - *Imanes y campo magnético:* arrastra dos imanes y observa atracción, repulsión y líneas de campo.
   - *Motor eléctrico:* mira la fuerza electromagnética (Fuerza de Lorentz) girar la bobina, controla velocidad e invierte la corriente.
@@ -40,13 +40,6 @@ magnetismo/
 
 - Las imágenes (Unsplash) y tipografías (Google Fonts) se cargan de servicios externos: **requiere internet** para verse completo.
 - Es una web estática: no guarda puntajes entre sesiones ni en un servidor.
-
-## 🌐 Publicar con GitHub Pages
-
-1. Sube esta carpeta a un repositorio.
-2. Ve a **Settings → Pages → Build and deployment**.
-3. En *Branch* elige `main` y carpeta `/ (root)`, y guarda.
-4. En unos minutos estará disponible en `https://TU_USUARIO.github.io/NOMBRE_DEL_REPO/`.
 
 ## 🧰 Tecnología
 
