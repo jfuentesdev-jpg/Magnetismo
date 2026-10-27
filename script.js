@@ -98,15 +98,7 @@ canvas.onmouseup = null;
 
 function initMagnetSim() {
   stopCurrentAnim();
-  dragTargets = magnets;
-
-  canvas.onmousedown = startDrag;
-  canvas.onmousemove = drag;
-  canvas.onmouseup = endDrag;
-  window.onmouseup = endDrag;
-  canvas.ontouchstart = (e) => startDrag(e.touches[0]);
-  canvas.ontouchmove = (e) => { e.preventDefault(); drag(e.touches[0]); };
-  canvas.ontouchend = endDrag;
+  dragTargets = magnets; // los eventos de entrada ya están registrados globalmente
 
   runMagnetLoop();
 }
@@ -156,6 +148,40 @@ function endDrag() {
   }
 }
 
+/* ---------- Eventos de entrada (se registran UNA sola vez) ----------
+   addEventListener con { passive: false } garantiza que preventDefault()
+   funcione en todos los navegadores móviles (algunos tratan como pasivos
+   los handlers táctiles asignados por propiedad y falla el arrastre).
+   Los eventos siempre quedan activos; cada modo decide si hay
+   arrastrables mediante dragTargets. */
+canvas.addEventListener('mousedown', (e) => startDrag(e));
+canvas.addEventListener('mousemove', (e) => drag(e));
+window.addEventListener('mouseup', endDrag);
+window.addEventListener('blur', endDrag);
+
+canvas.addEventListener('touchstart', (e) => {
+  if (dragTargets.length) e.preventDefault(); // evita eventos.mouse fantasma
+  startDrag(e.changedTouches[0]);
+}, { passive: false });
+
+canvas.addEventListener('touchmove', (e) => {
+  e.preventDefault();
+  drag(e.changedTouches[0]);
+}, { passive: false });
+
+canvas.addEventListener('touchend', endDrag);
+canvas.addEventListener('touchcancel', endDrag);
+
+// Marca de versión dibujada en el canvas: permite confirmar con un vistazo
+// qué versión de código ejecuta el navegador (diagnóstico de caché).
+function drawVersionTag() {
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+  ctx.font = '12px Nunito, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText('MagneWorld v3', 10, canvas.height - 10);
+}
+
 function runMagnetLoop() {
   if (currentSimMode !== 'magnets') return;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -197,6 +223,7 @@ function runMagnetLoop() {
   // Dibujar imanes
   drawMagnet(m1);
   drawMagnet(m2);
+  drawVersionTag();
 
   animationFrameId = requestAnimationFrame(runMagnetLoop);
 }
@@ -269,13 +296,7 @@ function toggleCurrentDirection() {
 function initMotorSim() {
   stopCurrentAnim();
 
-  // Limpiar eventos de interacción en este modo
-  canvas.onmousedown = null;
-  canvas.onmousemove = null;
-  canvas.onmouseup = null;
-  canvas.ontouchstart = null;
-  canvas.ontouchmove = null;
-  canvas.ontouchend = null;
+  // Sin arrastrables en este modo (los eventos globales quedan y se ignoran)
   dragTargets = [];
 
   runMotorLoop();
@@ -353,6 +374,7 @@ function runMotorLoop() {
   ctx.font = 'bold 16px Nunito';
   ctx.fillText('↑ Fuerza Magnética (Sube)', centerX - 160, centerY - 70);
   ctx.fillText('↓ Fuerza Magnética (Baja)', centerX + 160, centerY + 80);
+  drawVersionTag();
 
   animationFrameId = requestAnimationFrame(runMotorLoop);
 }
@@ -378,14 +400,6 @@ function resetCompass() {
 function initCompassSim() {
   stopCurrentAnim();
   dragTargets = [compassMagnet];
-
-  canvas.onmousedown = startDrag;
-  canvas.onmousemove = drag;
-  canvas.onmouseup = endDrag;
-  window.onmouseup = endDrag;
-  canvas.ontouchstart = (e) => startDrag(e.touches[0]);
-  canvas.ontouchmove = (e) => { e.preventDefault(); drag(e.touches[0]); };
-  canvas.ontouchend = endDrag;
 
   runCompassLoop();
 }
@@ -437,6 +451,7 @@ function runCompassLoop() {
 
   drawCompass(cx, cy, compassAngle);
   drawMagnet(compassMagnet);
+  drawVersionTag();
 
   animationFrameId = requestAnimationFrame(runCompassLoop);
 }
