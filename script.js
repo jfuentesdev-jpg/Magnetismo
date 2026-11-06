@@ -20,10 +20,179 @@ function switchPage(pageId) {
     activeBtn.classList.add('active');
   }
 
+  document.body.classList.toggle('deck-mode', pageId === 'deck');
+
+  if (pageId === 'deck') {
+    presentationActive = true;
+    showDeckSlide(deckIndex);
+  }
+
   if (pageId === 'simulator') {
     restartCurrentSimulation();
   }
+
+  updateDeckReturnChip();
 }
+
+// ================= PRESENTACIÓN (DECK): DIAPOSITIVA + DEMOSTRACIÓN =================
+// Estructura: cada diapositiva replica una del PDF «Usos del magnetismo» y,
+// donde aplica, ofrece una demo en vivo del simulador o del quiz.
+
+const deckSpeakerNotes = [
+  // 1 · Fundamento
+  "FUNDAMENTO: define el magnetismo como interacción de campos, cargas y movimiento. Repasa: polos opuestos se atraen, iguales se repelen, y la Tierra es un imán gigante. DEMO: arrastra los imanes, acércalos y usa «Cambiar Polo» para mostrar atracción y repulsión.",
+  // 2 · Aplicaciones 01
+  "COMUNICACIONES Y VIDA COTIDIANA: las antenas llevan información por ondas electromagnéticas; los altavoces convierten señales eléctricas en sonido con bobinas e imanes; la brújula se orienta con el campo terrestre. DEMO: acércale el imán a la brújula y muestra cómo su campo domina al de la Tierra.",
+  // 3 · Aplicaciones 02
+  "INDUSTRIA Y CONSTRUCCIÓN: las grúas levantan acero con electroimanes; los separadores retiran metales del reciclaje; los motores convierten electricidad en movimiento. DEMO: motor eléctrico — acelera con «Aumentar / Reducir Velocidad» y luego «Invertir Corriente» para invertir el giro.",
+  // 4 · Aplicaciones 03
+  "TECNOLOGÍA Y ELECTRÓNICA: los discos duros guardan datos imantando pequeñas regiones (cada polaridad es un 0 o 1); los transformadores transfieren energía por inducción; los sensores detectan posición y campos. RESALTA la animación de bits 0/1.",
+  // 5 · Aplicaciones 04
+  "TRANSPORTE MÁS EFICIENTE: los vehículos eléctricos usan motores electromagnéticos; los trenes Maglev levitan por repulsión magnética sin rozamiento; los generadores convierten movimiento en electricidad por inducción. Cierra con el dato: Maglev a más de 600 km/h.",
+  // 6 · Aplicaciones 05
+  "SALUD: la resonancia magnética fotografía el interior con campos intensos y ondas de radio sin radiación; la estimulación magnética transcraneal usa pulsos para tratar zonas del cerebro; la investigación biomédica aplica técnicas magnéticas al estudio de procesos biológicos.",
+  // 7 · Conclusión
+  "CONCLUSIÓN: el magnetismo conecta la ciencia con tecnologías que usamos a diario y que impulsan la innovación. Remata con la pregunta retórica al público: ¿cómo cambiaría nuestra vida si no pudiéramos aprovechar el magnetismo? Deja 2-3 respuestas del público.",
+  // 8 · Demo final
+  "CIERRE PARTICIPATIVO: lanza el quiz de 6 preguntas e invita al público a responder en voz alta. Lee la explicación de cada respuesta. Al terminar, el botón «◀ Volver a la presentación» regresa aquí para agradecer y cerrar."
+];
+
+const deckSlides = Array.from(document.querySelectorAll('#page-deck .deck-slide'));
+let deckIndex = 0;
+let presentationActive = true;
+let deckNotesOn = false;
+
+function initDeck() {
+  const dotsBox = document.getElementById('deckDots');
+  deckSlides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'deck-dot';
+    dot.setAttribute('aria-label', `Ir a la diapositiva ${i + 1} de ${deckSlides.length}`);
+    dot.addEventListener('click', () => showDeckSlide(i));
+    dotsBox.appendChild(dot);
+  });
+  showDeckSlide(0);
+}
+
+function showDeckSlide(i) {
+  if (!deckSlides.length) return;
+  deckIndex = Math.max(0, Math.min(deckSlides.length - 1, i));
+
+  deckSlides.forEach((slide, j) => slide.classList.toggle('active', j === deckIndex));
+
+  document.querySelectorAll('#deckDots .deck-dot').forEach((dot, j) => {
+    dot.classList.toggle('active', j === deckIndex);
+  });
+
+  const progressFill = document.getElementById('deckProgressFill');
+  if (progressFill) {
+    progressFill.style.width = `${((deckIndex + 1) / deckSlides.length) * 100}%`;
+  }
+
+  document.getElementById('deckPrevBtn').disabled = deckIndex === 0;
+  document.getElementById('deckNextBtn').disabled = deckIndex === deckSlides.length - 1;
+
+  document.getElementById('deckNotesTitle').textContent =
+    `📝 Notas · Diapositiva ${deckIndex + 1} de ${deckSlides.length}`;
+  document.getElementById('deckNotesText').textContent = deckSpeakerNotes[deckIndex];
+}
+
+function deckNext() {
+  showDeckSlide(deckIndex + 1);
+}
+
+function deckPrev() {
+  showDeckSlide(deckIndex - 1);
+}
+
+function toggleDeckNotes() {
+  deckNotesOn = !deckNotesOn;
+  document.getElementById('deckNotes').hidden = !deckNotesOn;
+  document.getElementById('deckNotesBtn').classList.toggle('active', deckNotesOn);
+}
+
+function toggleDeckFullscreen() {
+  try {
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    } else {
+      document.documentElement.requestFullscreen().catch(() => {});
+    }
+  } catch (err) {
+    // Algunos navegadores bloquean el fullscreen: la presentación funciona igualmente
+  }
+}
+
+function exitDeck() {
+  presentationActive = false;
+  switchPage('home');
+}
+
+function returnToDeck() {
+  switchPage('deck');
+}
+
+// kind: 'magnets' | 'compass' | 'motor' | 'quiz'
+function openDeckDemo(kind) {
+  if (kind === 'quiz') {
+    switchPage('home');
+    const quizCard = document.getElementById('quizCard');
+    if (quizCard) quizCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else {
+    setSimMode(kind);
+    switchPage('simulator');
+  }
+}
+
+// Muestra u oculta el botón flotante «◀ Volver a la presentación»:
+// aparece siempre que se esté presentando y se esté fuera del deck.
+function updateDeckReturnChip() {
+  const activePage = document.querySelector('.page.active');
+  const chip = document.getElementById('deckReturn');
+  const presentingOutside = presentationActive && activePage && activePage.id !== 'page-deck';
+  if (chip) chip.hidden = !presentingOutside;
+}
+
+// --- Navegación por teclado dentro de la presentación ---
+document.addEventListener('keydown', (e) => {
+  const activePage = document.querySelector('.page.active');
+  if (!activePage || activePage.id !== 'page-deck') return;
+  if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+  switch (e.key) {
+    case 'ArrowRight':
+    case 'PageDown':
+    case ' ':
+      e.preventDefault();
+      deckNext();
+      break;
+    case 'ArrowLeft':
+    case 'PageUp':
+      e.preventDefault();
+      deckPrev();
+      break;
+    case 'Home':
+      e.preventDefault();
+      showDeckSlide(0);
+      break;
+    case 'End':
+      e.preventDefault();
+      showDeckSlide(deckSlides.length - 1);
+      break;
+    case 'n':
+    case 'N':
+      toggleDeckNotes();
+      break;
+    case 'f':
+    case 'F':
+      toggleDeckFullscreen();
+      break;
+    case 'Escape':
+      exitDeck();
+      break;
+  }
+});
 
 // ================= GESTIÓN DE SIMULACIONES (MODOS) =================
 let currentSimMode = 'magnets'; // 'magnets' o 'motor'
@@ -656,8 +825,10 @@ function restartQuiz() {
   renderQuizQuestion();
 }
 
-// Iniciar app al cargar
+// Iniciar app al cargar: la presentación es la vista por defecto
 window.onload = () => {
+  initDeck();
+  switchPage('deck');
   initMagnetSim();
   renderQuizQuestion();
 };

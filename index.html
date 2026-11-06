@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>¡El Fascinante Mundo del Magnetismo y Motores!</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧲</text></svg>">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=4">
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -14,10 +14,14 @@
   <header class="navbar">
     <div class="logo">🧲 MagneWorld!</div>
     <nav>
+      <button class="nav-btn" onclick="switchPage('deck')">🎬 Presentación</button>
       <button class="nav-btn active" onclick="switchPage('home')">🏠 Inicio</button>
       <button class="nav-btn" onclick="switchPage('simulator')">🚀 Simulador y Motores</button>
     </nav>
   </header>
+
+  <!-- Botón flotante: regreso a la presentación desde una demo en vivo -->
+  <button id="deckReturn" class="deck-return-chip" onclick="returnToDeck()" hidden>◀ Volver a la presentación</button>
 
   <!-- ================= PÁGINA PRINCIPAL ================= -->
   <main id="page-home" class="page active">
@@ -200,10 +204,255 @@
     </div>
   </section>
 
+  <!-- ================= PRESENTACIÓN (DECK) ================= -->
+  <section id="page-deck" class="page deck-page" aria-label="Presentación: Usos del magnetismo">
+    <div class="deck-shell">
+
+      <div class="deck-topbar">
+        <div class="deck-brand">🧲 MagneWorld · Usos del magnetismo</div>
+        <div class="deck-topbar-actions">
+          <a class="deck-mini-btn" href="Usos%20del%20magnetismo.pdf" target="_blank" rel="noopener">📄 PDF respaldo</a>
+          <button class="deck-mini-btn" id="deckNotesBtn" onclick="toggleDeckNotes()">📝 Notas (N)</button>
+          <button class="deck-mini-btn" onclick="toggleDeckFullscreen()">⛶ Pantalla completa (F)</button>
+          <button class="deck-mini-btn deck-exit" onclick="exitDeck()">✖ Salir</button>
+        </div>
+      </div>
+
+      <div class="deck-progress"><div class="deck-progress-fill" id="deckProgressFill"></div></div>
+
+      <div class="deck-viewport" id="deckViewport" role="region" aria-label="Diapositivas de la presentación">
+
+        <!-- 1 · FUNDAMENTO -->
+        <article class="deck-slide active" id="deckSlide1">
+          <div class="deck-slide-inner">
+            <span class="deck-kicker">🧭 FUNDAMENTO</span>
+            <h2 class="deck-title">¿Qué es el magnetismo?</h2>
+            <p class="deck-subtitle">Una interacción de campos, cargas y movimiento.</p>
+            <div class="deck-chips">
+              <span class="deck-chip">🧲 Campos invisibles</span>
+              <span class="deck-chip">⚡ Cargas en movimiento</span>
+              <span class="deck-chip">🌍 La Tierra: un imán gigante</span>
+            </div>
+            <div class="deck-demo-wrap">
+              <button class="cta-btn" onclick="openDeckDemo('magnets')">▶ Demo en vivo: Imanes y campo magnético</button>
+            </div>
+            <p class="deck-hint">💡 Consejo: navega con las flechas ← → de tu teclado</p>
+          </div>
+        </article>
+
+        <!-- 2 · APLICACIONES 01: COMUNICACIONES -->
+        <article class="deck-slide" id="deckSlide2">
+          <span class="ghost-num" aria-hidden="true">01</span>
+          <div class="deck-slide-inner">
+            <span class="deck-kicker">APLICACIONES · 01</span>
+            <h2 class="deck-title">Comunicaciones y vida cotidiana</h2>
+            <p class="deck-subtitle">El magnetismo convierte señales invisibles en información, sonido y orientación.</p>
+            <div class="deck-cards">
+              <div class="deck-card">
+                <div class="deck-card-icon">📡</div>
+                <h3>Antenas</h3>
+                <p>Transmiten y reciben ondas electromagnéticas para llevar información.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">🔊</div>
+                <h3>Auriculares y altavoces</h3>
+                <p>Imanes, bobinas y fuerzas electromagnéticas convierten señales eléctricas en sonido.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">🧭</div>
+                <h3>Brújulas</h3>
+                <p>Una aguja imantada se orienta según el campo magnético terrestre.</p>
+              </div>
+            </div>
+            <div class="deck-visual wave-scene" aria-hidden="true">
+              <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+              <span class="antenna">📡</span>
+            </div>
+            <div class="deck-demo-wrap">
+              <button class="cta-btn" onclick="openDeckDemo('compass')">▶ Demo en vivo: Brújula y navegación</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 · APLICACIONES 02: INDUSTRIA -->
+        <article class="deck-slide" id="deckSlide3">
+          <span class="ghost-num" aria-hidden="true">02</span>
+          <div class="deck-slide-inner">
+            <span class="deck-kicker">APLICACIONES · 02</span>
+            <h2 class="deck-title">Industria y construcción</h2>
+            <p class="deck-subtitle">El magnetismo ayuda a mover, separar y accionar materiales a gran escala.</p>
+            <div class="deck-cards">
+              <div class="deck-card">
+                <div class="deck-card-icon">🏗️</div>
+                <h3>Grúas electromagnéticas</h3>
+                <p>Un electroimán activado levanta piezas de hierro y acero.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">♻️</div>
+                <h3>Separadores magnéticos</h3>
+                <p>Retiran metales de materiales industriales y flujos de reciclaje.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">⚙️</div>
+                <h3>Motores eléctricos</h3>
+                <p>Convierten energía eléctrica en movimiento para accionar maquinaria y equipos.</p>
+              </div>
+            </div>
+            <div class="deck-demo-wrap">
+              <button class="cta-btn" onclick="openDeckDemo('motor')">▶ Demo en vivo: Motor eléctrico y Fuerza de Lorentz</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 · APLICACIONES 03: TECNOLOGÍA -->
+        <article class="deck-slide" id="deckSlide4">
+          <span class="ghost-num" aria-hidden="true">03</span>
+          <div class="deck-slide-inner">
+            <span class="deck-kicker">APLICACIONES · 03</span>
+            <h2 class="deck-title">Tecnología y electrónica</h2>
+            <p class="deck-subtitle">La información y la energía también se controlan mediante magnetización e inducción.</p>
+            <div class="deck-cards">
+              <div class="deck-card">
+                <div class="deck-card-icon">💾</div>
+                <h3>Discos duros</h3>
+                <p>Guardan información mediante la magnetización controlada de pequeñas regiones.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">🔌</div>
+                <h3>Transformadores</h3>
+                <p>Transfieren energía entre circuitos por inducción y cambian los niveles de tensión.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">📟</div>
+                <h3>Sensores magnéticos</h3>
+                <p>Detectan posición, movimiento o campos magnéticos dentro de dispositivos electrónicos.</p>
+              </div>
+            </div>
+            <div class="deck-visual bit-strip" aria-hidden="true">
+              <span class="bit">0</span><span class="bit">1</span><span class="bit">1</span><span class="bit">0</span><span class="bit">1</span><span class="bit">0</span><span class="bit">0</span><span class="bit">1</span>
+            </div>
+            <p class="deck-hint">💾 Cada bit imantado (N o S) guarda un 0 o un 1</p>
+          </div>
+        </article>
+
+        <!-- 5 · APLICACIONES 04: TRANSPORTE -->
+        <article class="deck-slide" id="deckSlide5">
+          <span class="ghost-num" aria-hidden="true">04</span>
+          <div class="deck-slide-inner">
+            <span class="deck-kicker">APLICACIONES · 04</span>
+            <h2 class="deck-title">Transporte más eficiente</h2>
+            <p class="deck-subtitle">El electromagnetismo impulsa vehículos, reduce el contacto y también genera electricidad.</p>
+            <div class="deck-cards">
+              <div class="deck-card">
+                <div class="deck-card-icon">🚗</div>
+                <h3>Vehículos eléctricos</h3>
+                <p>Sus motores electromagnéticos producen el movimiento del vehículo.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">🚅</div>
+                <h3>Trenes Maglev</h3>
+                <p>Usan fuerzas magnéticas para levitar y desplazarse con muy poco contacto.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">🔋</div>
+                <h3>Generadores y alternadores</h3>
+                <p>Convierten energía mecánica en energía eléctrica mediante inducción.</p>
+              </div>
+            </div>
+            <div class="deck-visual levi-scene" aria-hidden="true">
+              <span class="levi-train">🚅</span>
+              <span class="levi-rail"></span>
+              <span class="levi-glow"></span>
+            </div>
+            <p class="deck-hint">🧲 Levitación magnética: el tren flota porque no roza</p>
+          </div>
+        </article>
+
+        <!-- 6 · APLICACIONES 05: SALUD -->
+        <article class="deck-slide" id="deckSlide6">
+          <span class="ghost-num" aria-hidden="true">05</span>
+          <div class="deck-slide-inner">
+            <span class="deck-kicker">APLICACIONES · 05</span>
+            <h2 class="deck-title">Salud: diagnosticar, tratar e investigar</h2>
+            <div class="deck-cards">
+              <div class="deck-card">
+                <div class="deck-card-icon">🏥</div>
+                <h3>Resonancia magnética</h3>
+                <p>Obtiene imágenes internas mediante campos magnéticos intensos y ondas de radio.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">🧠</div>
+                <h3>Estimulación magnética transcraneal</h3>
+                <p>Usa pulsos magnéticos para estimular determinadas zonas del cerebro en tratamientos médicos.</p>
+              </div>
+              <div class="deck-card">
+                <div class="deck-card-icon">🔬</div>
+                <h3>Investigación biomédica</h3>
+                <p>Aplica técnicas magnéticas para estudiar procesos biológicos y desarrollar tecnologías médicas.</p>
+              </div>
+            </div>
+            <div class="deck-visual pulse-scene" aria-hidden="true">
+              <span class="ring pink"></span><span class="ring pink"></span><span class="ring pink"></span>
+              <span class="pulse-brain">🧠</span>
+            </div>
+            <p class="deck-hint">⚡ Pulsos magnéticos que estimulan el cerebro sin cirugía</p>
+          </div>
+        </article>
+
+        <!-- 7 · CONCLUSIÓN -->
+        <article class="deck-slide" id="deckSlide7">
+          <div class="deck-slide-inner">
+            <span class="deck-kicker">🏁 CONCLUSIÓN</span>
+            <h2 class="deck-title">La importancia del magnetismo</h2>
+            <p class="deck-subtitle">El magnetismo es un fenómeno físico fundamental que conecta la ciencia con numerosas tecnologías que utilizamos diariamente y que impulsan la innovación.</p>
+            <div class="deck-chips deck-chips-col">
+              <span class="deck-chip">🏠 Vida cotidiana y comunicaciones: orientación, sonido y conexiones tecnológicas</span>
+              <span class="deck-chip">🏭 Industria, electrónica y transporte: accionar máquinas, almacenar información y desarrollar vehículos modernos</span>
+              <span class="deck-chip">🩺 Salud: resonancia magnética y tratamientos médicos avanzados</span>
+            </div>
+            <p class="deck-quote">«¿Cómo cambiaría nuestra vida si no pudiéramos aprovechar el magnetismo?»</p>
+          </div>
+        </article>
+
+        <!-- 8 · DEMO FINAL: QUIZ -->
+        <article class="deck-slide" id="deckSlide8">
+          <div class="deck-slide-inner">
+            <span class="deck-kicker">🎮 CIERRE · DEMO FINAL</span>
+            <h2 class="deck-title">¡Ustedes participan!</h2>
+            <p class="deck-subtitle">6 preguntas sobre los usos del magnetismo. Respondan en voz alta y descubramos juntos el puntaje final.</p>
+            <div class="deck-chips">
+              <span class="deck-chip">🧠 6 preguntas</span>
+              <span class="deck-chip">🏆 Puntaje en vivo</span>
+              <span class="deck-chip">💡 Explicación en cada respuesta</span>
+            </div>
+            <div class="deck-demo-wrap">
+              <button class="cta-btn" onclick="openDeckDemo('quiz')">▶ Comenzar el Quiz con el público</button>
+            </div>
+            <p class="deck-hint">Volverás aquí con el botón «◀ Volver a la presentación»</p>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="deck-controls">
+        <button class="deck-arrow" id="deckPrevBtn" onclick="deckPrev()" aria-label="Diapositiva anterior">❮</button>
+        <div class="deck-dots" id="deckDots"></div>
+        <button class="deck-arrow" id="deckNextBtn" onclick="deckNext()" aria-label="Diapositiva siguiente">❯</button>
+        <span class="deck-hint">← / → o espacio para navegar · F pantalla completa · N notas del expositor · Esc salir</span>
+      </div>
+
+      <aside class="deck-notes" id="deckNotes" hidden>
+        <h4 id="deckNotesTitle">📝 Notas del expositor</h4>
+        <p id="deckNotesText"></p>
+      </aside>
+
+    </div>
+  </section>
+
   <footer>
     <p>⚡ MagneWorld - Creado para explorar la ciencia de forma divertida 🧲</p>
   </footer>
 
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=4"></script>
 </body>
 </html>

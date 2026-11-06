@@ -4,6 +4,7 @@ Web educativa e interactiva sobre el **magnetismo**, sus **usos en la vida diari
 
 ## ✨ Qué incluye
 
+- **🎬 Modo presentación:** al abrir la web arranca una presentación íntegra que sigue el orden del PDF «Usos del magnetismo»: diapositiva → demostración en vivo → siguiente. Botón «▶ Demo» salta al simulador (imanes, brújula o motor) o al quiz, y «◀ Volver a la presentación» regresa a la misma diapositiva. Navegación con **← → / espacio**, notas del expositor con **N**, pantalla completa con **F** y salida con **Esc**.
 - **📖 Contenido educativo:** qué es el magnetismo, los polos, el campo magnético terrestre y datos curiosos (tortugas marinas, trenes Maglev, auroras boreales).
 - **🎯 Sección de usos:** motores eléctricos, trenes Maglev, resonancia magnética (MRI), altavoces, discos duros, cocinas de inducción y brújulas.
 - **🧪 Simuladores en canvas**:
